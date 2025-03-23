@@ -1,19 +1,19 @@
 package com.ghf.proxy;
 
+import com.ghf.client.Impl.NettyClient;
 import com.ghf.conmon.RpcRequest;
+import com.ghf.client.RPCClient;
+import com.ghf.client.Impl.SimpleSocketClient;
 import com.ghf.conmon.RpcResponse;
-import com.ghf.conmon.URL;
-import com.ghf.loadbalance.LoadBalance;
-import com.ghf.protocal.HttpClient;
-import com.ghf.register.LocalRegister;
-import com.ghf.register.MapRemoteRegister;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.List;
 
 public class ProxyFactory {
+    private RPCClient rpcClient;
+
+
 //    这里泛型的T是隐式类型推断，根据方法调用时被赋值给的变量类型为HelloService helloService = ProxyFactory.getProxy(HelloService.class);推断出为HelloService类型
     public static  <T> T getProxy(Class interfaceClass)
     {
@@ -28,8 +28,10 @@ public class ProxyFactory {
 //                负载均衡，从服务器列表中挑选一个服务器
 //                URL url = LoadBalance.random(list);
 //                服务调用
-                RpcResponse response = HttpClient.send("localhost",8080, rpcRequest);
+                NettyClient client = new NettyClient("localhost",8086);
+                RpcResponse response = client.sendRPCRequest(rpcRequest);
                 return response.getData();
+
             }
         });
         return (T)proxyInstance;

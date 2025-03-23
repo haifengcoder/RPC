@@ -1,18 +1,24 @@
-package com.ghf.protocal;
+package com.ghf.client.Impl;
 
+import com.ghf.client.RPCClient;
 import com.ghf.conmon.RpcRequest;
 import com.ghf.conmon.RpcResponse;
-import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.Socket;
-import java.net.URL;
 import java.net.UnknownHostException;
 
-public class HttpClient {
-    public static RpcResponse send(String hostName, Integer port, RpcRequest rpcRequest)
-    {
+public class SimpleSocketClient implements RPCClient {
+    private String hostName;
+    private Integer port;
+
+    public SimpleSocketClient(String hostName, Integer port) {
+        this.hostName = hostName;
+        this.port = port;
+    }
+
+    @Override
+    public RpcResponse sendRPCRequest( RpcRequest rpcRequest) {
         try{
             Socket socket = new Socket(hostName, port);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -31,7 +37,6 @@ public class HttpClient {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 }

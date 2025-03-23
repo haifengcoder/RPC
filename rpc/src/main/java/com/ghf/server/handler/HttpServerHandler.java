@@ -1,4 +1,4 @@
-package com.ghf.protocal;
+package com.ghf.server.handler;
 
 import com.ghf.conmon.RpcRequest;
 import com.ghf.conmon.RpcResponse;
