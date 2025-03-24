@@ -2,6 +2,8 @@ package com.ghf.client.Impl;
 
 import com.ghf.client.RPCClient;
 import com.ghf.client.handler.NettyClientHandler;
+import com.ghf.client.serviceCenter.ServiceCenter;
+import com.ghf.client.serviceCenter.ZKServiceCenter;
 import com.ghf.conmon.RpcRequest;
 import com.ghf.conmon.RpcResponse;
 import io.netty.bootstrap.Bootstrap;
@@ -18,16 +20,12 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.AttributeKey;
 
+import java.net.InetSocketAddress;
+
 public class NettyClient implements RPCClient {
-    private String hostName;
-    private Integer port;
     private static Bootstrap bootstrap;
     private static NioEventLoopGroup eventExecutors;
 
-    public NettyClient(String hostName, Integer port) {
-        this.hostName = hostName;
-        this.port = port;
-    }
 
     static{
         eventExecutors = new NioEventLoopGroup();
@@ -55,25 +53,9 @@ public class NettyClient implements RPCClient {
                     }
                 });
     }
-    public void sendMessage(String str)
-    {
-        try{
-            ChannelFuture channelFuture = bootstrap.connect(hostName, port).sync();
-            System.out.println("-------客户端绑定成功");
-            Channel channel = channelFuture.channel();
-            System.out.println("-------客户端绑定成功2");
-            channel.writeAndFlush(str);
-            System.out.println("-------客户端绑定成功3");
-            channel.closeFuture();
-            System.out.println("-------客户端绑定成功4");
 
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
     @Override
-    public RpcResponse sendRPCRequest(RpcRequest request)  {
+    public RpcResponse sendRPCRequest(String hostName, Integer port, RpcRequest request)  {
 
         try{
             ChannelFuture channelFuture = bootstrap.connect(hostName, port).sync();

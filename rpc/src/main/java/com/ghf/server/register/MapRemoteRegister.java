@@ -1,4 +1,4 @@
-package com.ghf.register;
+package com.ghf.server.register;
 
 import com.ghf.conmon.URL;
 

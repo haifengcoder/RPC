@@ -1,4 +1,4 @@
-package com.ghf.register;
+package com.ghf.server.register;
 
 import java.util.HashMap;
 import java.util.Map;

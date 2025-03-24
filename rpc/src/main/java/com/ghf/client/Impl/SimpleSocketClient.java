@@ -9,16 +9,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class SimpleSocketClient implements RPCClient {
-    private String hostName;
-    private Integer port;
 
-    public SimpleSocketClient(String hostName, Integer port) {
-        this.hostName = hostName;
-        this.port = port;
+
+    public SimpleSocketClient() {
+
     }
 
     @Override
-    public RpcResponse sendRPCRequest( RpcRequest rpcRequest) {
+    public RpcResponse sendRPCRequest(String hostName, Integer port, RpcRequest rpcRequest) {
         try{
             Socket socket = new Socket(hostName, port);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());

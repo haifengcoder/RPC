@@ -2,7 +2,7 @@ package com.ghf.server.handler;
 
 import com.ghf.conmon.RpcRequest;
 import com.ghf.conmon.RpcResponse;
-import com.ghf.register.LocalRegister;
+import com.ghf.server.register.LocalRegister;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
