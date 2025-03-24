@@ -20,7 +20,11 @@ public class ProxyFactory {
         if (rpcClient == null)
         {
             rpcClient = new NettyClient();
-            serviceCenter = new ZKServiceCenter();
+            try {
+                serviceCenter = new ZKServiceCenter();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

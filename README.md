@@ -8,3 +8,11 @@
 ### Version 1.1
 
 * 抽象了 RPCClient 接口和 RPCRequest 接口，并实现了 基于 Netty 的客户端和服务端，实现客户端与服务端通信。
+
+### Version 1.2
+
+* 引入了Zookeeper作为注册中心。
+
+### Version 2.0
+
+* 在客户端建立本地缓存并动态更新。借助本地缓存提升服务发现速度无需每次都查询Zookeeper；借助Watcher监听指定路径节点变化，实现本地缓存动态更新。
