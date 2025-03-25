@@ -11,9 +11,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 
-public class HttpServerHandler implements Runnable{
+public class SocketServerHandler implements Runnable{
     private Socket socket;
-    public HttpServerHandler(Socket socket)
+    public SocketServerHandler(Socket socket)
     {
         this.socket = socket;
     }

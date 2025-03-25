@@ -15,6 +15,7 @@ public class ZKServiceRegister implements ServiceRegister {
     //zookeeper根路径节点
     private static final String ROOT_PATH = "MyRPC";
 
+
     //负责zookeeper客户端的初始化，并与zookeeper服务端进行连接
     public ZKServiceRegister(){
         // 指数时间重试

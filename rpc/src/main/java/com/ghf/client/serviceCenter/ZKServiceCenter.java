@@ -1,5 +1,9 @@
 package com.ghf.client.serviceCenter;
 
+import com.ghf.client.loadbalance.ConsistencyHashBalance;
+import com.ghf.client.loadbalance.LoadBalance;
+import com.ghf.client.loadbalance.RandomLoadBalance;
+import com.ghf.client.loadbalance.RoundLoadBalance;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -15,6 +19,9 @@ public class ZKServiceCenter implements ServiceCenter {
     private static final String ROOT_PATH = "MyRPC";
 
     private ServiceCache serviceCache;
+
+    private LoadBalance loadBalance = new RandomLoadBalance();
+//    private LoadBalance loadBalance = new ConsistencyHashBalance();
 
     // 负责 Zookeeper 客户端的初始化，并与 Zookeeper 服务端进行连接
     public ZKServiceCenter() throws InterruptedException {
@@ -57,8 +64,8 @@ public class ZKServiceCenter implements ServiceCenter {
                 return null;
             }
 
-            // 这里默认用的第一个，后面加负载均衡
-            String instance = serviceList.get(0);
+//            负载均衡
+            String instance = loadBalance.balance(serviceList);
             return parseAddress(instance);
         } catch (Exception e) {
             e.printStackTrace();

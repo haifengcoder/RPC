@@ -1,6 +1,6 @@
-package com.ghf.server.Impl;
+package com.ghf.server.rpcServerImpl;
 
-import com.ghf.server.handler.HttpServerHandler;
+import com.ghf.server.handler.SocketServerHandler;
 import com.ghf.server.RPCServer;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class ThreadPoolServer implements RPCServer {
             while(true)
             {
                 Socket socket = serverSocket.accept();
-                threadPoolExecutor.execute(new HttpServerHandler(socket));
+                threadPoolExecutor.execute(new SocketServerHandler(socket));
             }
 
         } catch (IOException e) {
