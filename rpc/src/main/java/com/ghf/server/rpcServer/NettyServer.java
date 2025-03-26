@@ -1,7 +1,7 @@
-package com.ghf.server.rpcServerImpl;
+package com.ghf.server.rpcServer;
 
-import com.ghf.server.RPCServer;
 import com.ghf.server.handler.NettyServerHandler;
+import com.ghf.server.rateLimit.RateLimitProvider;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -15,10 +15,15 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 
 public class NettyServer implements RPCServer {
     private Integer port;
+    private RateLimitProvider rateLimitProvider;
 
     @Override
     public void start(Integer port) {
         this.port = port;
+        rateLimitProvider = new RateLimitProvider();
+
+
+
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
         NioEventLoopGroup work = new NioEventLoopGroup();
         try{
@@ -41,7 +46,7 @@ public class NettyServer implements RPCServer {
                                 }
                             }));
 
-                            channel.pipeline().addLast(new NettyServerHandler());
+                            channel.pipeline().addLast(new NettyServerHandler(rateLimitProvider));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.bind(port).sync();

@@ -1,7 +1,6 @@
-package com.ghf.server.rpcServerImpl;
+package com.ghf.server.rpcServer;
 
 import com.ghf.server.handler.SocketServerHandler;
-import com.ghf.server.RPCServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;

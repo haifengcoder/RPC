@@ -5,9 +5,6 @@ package com.ghf.client.loadbalance;
 import java.util.*;
 
 /**
- * @author wxx
- * @version 1.0
- * @create 2024/6/19 21:16
  * 一致性哈希算法 负载均衡
  */
 public class ConsistencyHashBalance implements LoadBalance {

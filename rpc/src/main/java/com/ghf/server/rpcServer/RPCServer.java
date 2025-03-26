@@ -1,4 +1,4 @@
-package com.ghf.server;
+package com.ghf.server.rpcServer;
 
 public interface RPCServer {
     public void start(Integer port);
